@@ -9,9 +9,9 @@ import time
 from base_camera import BaseCamera
 
 CLASSES = ["background", "aeroplane", "bicycle", "bird", "boat",
-	"bottle", "bus", "car", "cat", "chair", "cow", "diningtable",
-	"dog", "horse", "motorbike", "person", "pottedplant", "sheep",
-	"sofa", "train", "tvmonitor"]
+    "bottle", "bus", "car", "cat", "chair", "cow", "diningtable",
+    "dog", "horse", "motorbike", "person", "pottedplant", "sheep",
+    "sofa", "train", "tvmonitor"]
 COLORS = np.random.uniform(0, 255, size=(len(CLASSES), 3))
 MODEL_PATH = "models/"
 MODEL_NAME = "MobileNetSSD_deploy"
@@ -49,7 +49,7 @@ class Camera(BaseCamera):
                                          (300, 300),
                                          127.5)
             self.net.setInput(blob)
-	        detections = self.net.forward()
+            detections = self.net.forward()
             # loop over the detections
         	for i in np.arange(0, detections.shape[2]):
         		# extract the confidence (i.e., probability) associated with

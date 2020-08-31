@@ -4,7 +4,7 @@ import os
 from flask import Flask, render_template, Response
 
 # import camera driver
-from camera_pi import Camera
+from camera_opencv import Camera
 
 # Raspberry Pi camera module (requires picamera package)
 # from camera_pi import Camera

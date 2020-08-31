@@ -16,14 +16,15 @@ COLORS = np.random.uniform(0, 255, size=(len(CLASSES), 3))
 MODEL_PATH = "models/"
 MODEL_NAME = "MobileNetSSD_deploy"
 
+# load our serialized model from disk
+print("[INFO] loading model...")
+net = cv2.dnn.readNetFromCaffe(MODEL_PATH + MODEL_NAME + ".prototxt",
+                                    MODEL_PATH + MODEL_NAME + ".caffemodel")
+
 class Camera(BaseCamera):
     video_source = 0
 
     def __init__(self):
-        # load our serialized model from disk
-        print("[INFO] loading model...")
-        self.net = cv2.dnn.readNetFromCaffe(MODEL_PATH + MODEL_NAME + ".prototxt",
-                                            MODEL_PATH + MODEL_NAME + ".caffemodel")
 
         if os.environ.get('OPENCV_CAMERA_SOURCE'):
             Camera.set_video_source(int(os.environ['OPENCV_CAMERA_SOURCE']))
@@ -44,12 +45,12 @@ class Camera(BaseCamera):
             _, img = camera.read()
             img = imutils.resize(img, width=400)
             (h, w) = img.shape[:2]
-            blob = cv2.dnn.blobFromImage(cv2.resize(frame, (300, 300)),
+            blob = cv2.dnn.blobFromImage(cv2.resize(img, (300, 300)),
                                          0.007843,
                                          (300, 300),
                                          127.5)
-            self.net.setInput(blob)
-            detections = self.net.forward()
+            net.setInput(blob)
+            detections = net.forward()
             # loop over the detections
             for i in np.arange(0, detections.shape[2]):
                 # extract the confidence (i.e., probability) associated with
@@ -57,7 +58,7 @@ class Camera(BaseCamera):
                 confidence = detections[0, 0, i, 2]
                 # filter out weak detections by ensuring the `confidence` is
                 # greater than the minimum confidence
-                if confidence > args["confidence"]:
+                if confidence > 0.4:
                     # extract the index of the class label from the
                     # `detections`, then compute the (x, y)-coordinates of
                     # the bounding box for the object

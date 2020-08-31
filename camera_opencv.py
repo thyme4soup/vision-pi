@@ -18,8 +18,9 @@ MODEL_NAME = "MobileNetSSD_deploy"
 
 # load our serialized model from disk
 print("[INFO] loading model...")
-net = cv2.dnn.readNetFromCaffe(MODEL_PATH + MODEL_NAME + ".prototxt",
-                                    MODEL_PATH + MODEL_NAME + ".caffemodel")
+net = cv2.dnn.readNetFromCaffe(
+    MODEL_PATH + MODEL_NAME + ".prototxt",
+    MODEL_PATH + MODEL_NAME + ".caffemodel")
 
 class Camera(BaseCamera):
     video_source = 0

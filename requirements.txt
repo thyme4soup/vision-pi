@@ -7,3 +7,4 @@ Werkzeug>=1.0.1
 numpy>=1.13.1
 opencv-contrib-python==4.1.0.25
 picamera>=1.13
+imutils>=0.5.3

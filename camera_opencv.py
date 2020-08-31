@@ -50,6 +50,7 @@ class Camera(BaseCamera):
                                          127.5)
             self.net.setInput(blob)
             detections = self.net.forward()
+            # source: https://www.pyimagesearch.com/2017/10/16/raspberry-pi-deep-learning-object-detection-with-opencv/
             # loop over the detections
             for i in np.arange(0, detections.shape[2]):
                 # extract the confidence (i.e., probability) associated with
